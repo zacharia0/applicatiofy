@@ -5,15 +5,13 @@ import com.zacharia.applicatiofybe.dto.UpdateUserRequestDTO;
 import com.zacharia.applicatiofybe.dto.UpdateUserResponseDTO;
 import com.zacharia.applicatiofybe.entity.Account;
 import com.zacharia.applicatiofybe.service.AccountService;
-import org.springframework.boot.actuate.web.exchanges.HttpExchange;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/account")
-@CrossOrigin
+//@CrossOrigin
 public class UserController {
 
     private final AccountService accountService;
@@ -21,13 +19,17 @@ public class UserController {
         this.accountService = accountService;
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<UpdateUserResponseDTO> updateAccount(@RequestBody UpdateUserRequestDTO updateUserRequestDTO, Principal principal){
-        System.out.println("This is the username of the account" + principal.getName());
-//        Account accountUpdate = accountService.updateUser(principal.getName(), updateUserRequestDTO);
-//        accountService.updateUser(principal.getName(), updateUserRequestDTO);
-        UpdateUserResponseDTO updateUserResponseDTO = accountService.updateUser(principal.getName(), updateUserRequestDTO);
+    @PutMapping("/update/{username}")
+    public ResponseEntity<UpdateUserResponseDTO> updateAccount( @PathVariable String username, @RequestBody UpdateUserRequestDTO updateUserRequestDTO ){
+        UpdateUserResponseDTO updateUserResponseDTO = accountService.updateUser(username, updateUserRequestDTO);
         return ResponseEntity.ok(updateUserResponseDTO);
+    }
+
+    @DeleteMapping("/delete/{username}")
+    public ResponseEntity<String> deleteAccount(@PathVariable String username){
+        System.out.println("This is the username:  " + username);
+        this.accountService.deleteAccount(username);
+        return ResponseEntity.ok("Account deleted Successfully.");
     }
 
 

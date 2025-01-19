@@ -22,7 +22,7 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -42,7 +42,7 @@ public class AuthService {
                     new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword()));
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequestDTO.getUsername());
+                    UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(loginRequestDTO.getUsername());
 
                     final String jwt = jwtUtil.generateToken(userDetails);
                     Account account = accountRepository.findByUsername(loginRequestDTO.getUsername())
@@ -68,7 +68,7 @@ public class AuthService {
         accountRepository.save(account);
 
         // Automatically authenticate after registration.
-        UserDetails userDetails = userDetailsService.loadUserByUsername(signUpRequestDTO.getUsername());
+        UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(signUpRequestDTO.getUsername());
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
