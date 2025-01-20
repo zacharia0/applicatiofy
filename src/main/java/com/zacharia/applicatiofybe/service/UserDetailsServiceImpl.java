@@ -1,6 +1,6 @@
 package com.zacharia.applicatiofybe.service;
 
-import com.zacharia.applicatiofybe.entity.Account;
+import com.zacharia.applicatiofybe.entity.AccountEntity;
 import com.zacharia.applicatiofybe.repository.AccountRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountRepository.findByUsername(username)
+        AccountEntity accountEntity = accountRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         /*
@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     Authorities (roles/permissions): In this case, it's an empty set (new HashSet<>())
                                                      because no roles or permissions are being set here.
         */
-        return new User(account.getUsername(), account.getPassword(), new HashSet<>());
+        return new User(accountEntity.getUsername(), accountEntity.getPassword(), new HashSet<>());
     }
 
 }

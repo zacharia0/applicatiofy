@@ -3,7 +3,6 @@ package com.zacharia.applicatiofybe.controller;
 import com.zacharia.applicatiofybe.dto.JwtResponseDTO;
 import com.zacharia.applicatiofybe.dto.LoginRequestDTO;
 import com.zacharia.applicatiofybe.dto.SignUpRequestDTO;
-import com.zacharia.applicatiofybe.entity.Account;
 import com.zacharia.applicatiofybe.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

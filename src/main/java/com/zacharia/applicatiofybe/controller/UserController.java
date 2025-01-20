@@ -3,7 +3,6 @@ package com.zacharia.applicatiofybe.controller;
 
 import com.zacharia.applicatiofybe.dto.UpdateUserRequestDTO;
 import com.zacharia.applicatiofybe.dto.UpdateUserResponseDTO;
-import com.zacharia.applicatiofybe.entity.Account;
 import com.zacharia.applicatiofybe.service.AccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

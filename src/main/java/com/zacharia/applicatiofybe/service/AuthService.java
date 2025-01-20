@@ -3,7 +3,7 @@ package com.zacharia.applicatiofybe.service;
 import com.zacharia.applicatiofybe.dto.JwtResponseDTO;
 import com.zacharia.applicatiofybe.dto.LoginRequestDTO;
 import com.zacharia.applicatiofybe.dto.SignUpRequestDTO;
-import com.zacharia.applicatiofybe.entity.Account;
+import com.zacharia.applicatiofybe.entity.AccountEntity;
 import com.zacharia.applicatiofybe.exception.InvalidCredentialsException;
 import com.zacharia.applicatiofybe.repository.AccountRepository;
 import com.zacharia.applicatiofybe.util.JwtUtil;
@@ -45,11 +45,11 @@ public class AuthService {
                     UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(loginRequestDTO.getUsername());
 
                     final String jwt = jwtUtil.generateToken(userDetails);
-                    Account account = accountRepository.findByUsername(loginRequestDTO.getUsername())
+                    AccountEntity accountEntity = accountRepository.findByUsername(loginRequestDTO.getUsername())
                             .orElseThrow(() -> new RuntimeException("Account not found"));
     //                System.out.println("GENERATED JWT TOKEN: " + jwt);
 
-                    return new JwtResponseDTO(jwt,account.getFirstName(),account.getLastName(),account.getUsername(),account.getId());
+                    return new JwtResponseDTO(jwt, accountEntity.getFirstName(), accountEntity.getLastName(), accountEntity.getUsername(), accountEntity.getId());
         }catch(Exception e){
             throw new InvalidCredentialsException("Invalid username or password");
         }
@@ -60,12 +60,12 @@ public class AuthService {
             throw new InvalidCredentialsException("Username is already taken!");
         }
 
-        Account account = new Account();
-        account.setUsername(signUpRequestDTO.getUsername());
-        account.setFirstName(signUpRequestDTO.getFirstName());
-        account.setLastName(signUpRequestDTO.getLastName());
-        account.setPassword(passwordEncoder.encode(signUpRequestDTO.getPassword()));
-        accountRepository.save(account);
+        AccountEntity accountEntity = new AccountEntity();
+        accountEntity.setUsername(signUpRequestDTO.getUsername());
+        accountEntity.setFirstName(signUpRequestDTO.getFirstName());
+        accountEntity.setLastName(signUpRequestDTO.getLastName());
+        accountEntity.setPassword(passwordEncoder.encode(signUpRequestDTO.getPassword()));
+        accountRepository.save(accountEntity);
 
         // Automatically authenticate after registration.
         UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(signUpRequestDTO.getUsername());
@@ -75,7 +75,7 @@ public class AuthService {
         // Genrate Jwt Token
         final String jwt = jwtUtil.generateToken(userDetails);
 
-        return new JwtResponseDTO(jwt,account.getFirstName(),account.getLastName(),account.getUsername(),account.getId());
+        return new JwtResponseDTO(jwt, accountEntity.getFirstName(), accountEntity.getLastName(), accountEntity.getUsername(), accountEntity.getId());
     }
 
 
