@@ -5,7 +5,12 @@ import com.zacharia.applicatiofybe.entity.AccountEntity;
 import com.zacharia.applicatiofybe.entity.JobApplicationEntity;
 import com.zacharia.applicatiofybe.repository.AccountRepository;
 import com.zacharia.applicatiofybe.repository.JobApplicationRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JobApplicationService {
@@ -35,6 +40,15 @@ public class JobApplicationService {
         jobApplicationEntity.setNotes(jobApplicationRequestDTO.getNotes());
 
         return this.jobApplicationRepository.save(jobApplicationEntity);
+    }
+
+    public List<JobApplicationEntity> getAllJobApplications(String username) {
+        AccountEntity account = this.accountRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+        return this.jobApplicationRepository.findByAccountId(account.getId());
+
+
+
     }
 
 

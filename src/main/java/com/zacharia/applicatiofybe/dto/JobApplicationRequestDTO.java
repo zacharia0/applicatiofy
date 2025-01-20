@@ -16,11 +16,11 @@ public class JobApplicationRequestDTO {
     private String jobTitle;
     @NotBlank(message ="Company name is required")
     private String companyName;
-    @NotNull(message = "Application date is required")
+//    @NotNull(message = "Application date is required")
     private LocalDate applicationDate;
     private LocalDate interviewDate;
     private String applicationMethod;
-    @NotNull(message = "Status is required")
+//    @NotNull(message = "Status is required")
     private JobStatusEntity status;
     private String applicationLink;
     private String recruiterName;
