@@ -1,6 +1,7 @@
 package com.zacharia.applicatiofybe.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.zacharia.applicatiofybe.enums.JobStatusEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public class JobApplicationEntity {
     @Column(nullable = false)
     private String companyName;
     @Column
-    private LocalDate applicationDate;
+    private LocalDate appliedDate;
     @Column
     private LocalDate dateApplied;
     @Column
@@ -30,7 +31,7 @@ public class JobApplicationEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private JobStatusEntity status;
+    private JobStatusEnum status;
 
     @Column
     private String applicationLink;

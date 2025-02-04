@@ -1,27 +1,29 @@
 package com.zacharia.applicatiofybe.dto;
 
 import com.zacharia.applicatiofybe.entity.AccountEntity;
-import com.zacharia.applicatiofybe.entity.JobStatusEntity;
+import com.zacharia.applicatiofybe.enums.JobStatusEnum;
 import jakarta.validation.constraints.NotBlank;
 //import lombok.AllArgsConstructor;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-//@AllArgsConstructor
+
+@AllArgsConstructor
 public class JobApplicationRequestDTO {
+    private Long id;
     @NotBlank(message ="Job title is required")
     private String jobTitle;
     @NotBlank(message ="Company name is required")
     private String companyName;
 //    @NotNull(message = "Application date is required")
-    private LocalDate applicationDate;
+    private LocalDate appliedDate;
     private LocalDate interviewDate;
     private String applicationMethod;
 //    @NotNull(message = "Status is required")
-    private JobStatusEntity status;
+    private JobStatusEnum status;
     private String applicationLink;
     private String recruiterName;
     private String recruiterContact;
