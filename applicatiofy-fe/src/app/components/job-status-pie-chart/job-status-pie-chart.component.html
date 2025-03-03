@@ -1,0 +1,18 @@
+<div  *ngIf = "jobApplicationList.length > 0 " class=" h-100 ">
+  <div class="w-full max-w-[300px] mx-auto">
+    <canvas baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [type]="pieChartType"
+            [options]="pieChartOptions">
+    </canvas>
+
+  </div>
+
+
+</div>
+
+  <div >
+    <app-job-application-list/>
+
+  </div>
